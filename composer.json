@@ -1,0 +1,33 @@
+{
+    "name": "urvin/phikaru",
+    "description": "PHP Hikaru image thumbnail server methods binding",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+      "thumbnail",
+      "hikaru"
+    ],
+    "authors": [
+        {
+            "name": "Yuriy Gorbachev",
+            "email": "yuriy@gorbachev.rocks"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+      "psr-4": {
+        "urvin\\phikaru\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "urvin\\phikaru\\tests\\": "tests/"
+      }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1"
+    }
+}
