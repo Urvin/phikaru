@@ -17,7 +17,7 @@ composer require urvin/phikaru
 $phikaru = new \urvin\phikaru\Phikaru('http://hikaru.local', 'not_safe');
 
 // Upload image
-$phikaru->upload('three_cows_walking_on_a_road, '/path/to/cows.jpg');
+$phikaru->upload('three_cows_walking_on_a_road', '/path/to/cows.jpg');
 
 // Create a thumbnail URL as you want
 echo $phikaru->thumbnail()
@@ -28,7 +28,7 @@ echo $phikaru->thumbnail()
     ->cast(\urvin\phikaru\UrlBuilder::CAST_RESIZE_INVERSE)
     ->cast(\urvin\phikaru\UrlBuilder::CAST_TRIM)
     ->cast(\urvin\phikaru\UrlBuilder::CAST_EXTENT);
-    
+
 // When a moment comes, delete source and all thumbnails from server
 $phikaru->remove('three_cows_walking_on_a_road');
 ```
