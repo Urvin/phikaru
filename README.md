@@ -40,4 +40,4 @@ Yuriy Gorbachev <yuriy@gorbachev.rocks>
 This module is licensed under the MIT license; see [`LICENSE`][license]
 
 [hikaru]:<https://github.com/Urvin/hikaru>
-[license]: https://github.com/99designs/phumbor/blob/master/LICENSE
+[license]:<https://github.com/Urvin/phikaru/blob/master/LICENSE>
