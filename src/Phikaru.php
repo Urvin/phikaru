@@ -105,7 +105,7 @@ class Phikaru
 
         $fileHandler = fopen($sourceFilename, 'r');
 
-        if(!$fileHandler) {
+        if($fileHandler === false) {
             throw new \RuntimeException('Could not read source file');
         }
 
