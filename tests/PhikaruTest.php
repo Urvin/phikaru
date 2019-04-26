@@ -49,6 +49,14 @@ class PhikaruTest extends TestCase
         $phikaru = new UrlBuilder('', '');
     }
 
+    public function testHttp()
+    {
+        $phikaru = new Phikaru(self::DEFAULT_URL, self::DEFAULT_SALT);
+        $client = $this->accessor->getPropertyMethodResult($phikaru, 'http', []);
+
+        $this->assertInstanceOf(Client::class, $client);
+    }
+
     public function testThumbnail()
     {
         $phikaru = new Phikaru(self::DEFAULT_URL, self::DEFAULT_SALT);
