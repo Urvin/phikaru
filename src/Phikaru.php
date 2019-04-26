@@ -89,7 +89,7 @@ class Phikaru
      * @throws \Exception
      * @throws \InvalidArgumentException
      */
-    public function upload(string $destinationFilename, string $sourceFilename)
+    public function upload(string $destinationFilename, string $sourceFilename): void
     {
         if(empty($destinationFilename)) {
             throw new \InvalidArgumentException("Destination filename should not be empty");
@@ -114,7 +114,7 @@ class Phikaru
                 'body' => $fileHandler
             ]);
         } catch (RequestException $e) {
-            throw new \Exception('Request exception: ' . $e->getMessage(), 0, $e);
+            throw new Exception('Upload exception: ' . $e->getMessage(), 0, $e);
         } finally {
             if(is_resource($fileHandler)) {
                 fclose($fileHandler);
@@ -127,7 +127,7 @@ class Phikaru
      * @throws \Exception
      * @throws \InvalidArgumentException
      */
-    public function remove(string $filename)
+    public function remove(string $filename): void
     {
         if(empty($filename)) {
             throw new \InvalidArgumentException("Filename should not be empty");
@@ -136,7 +136,7 @@ class Phikaru
         try {
             $this->http()->delete(static::REMOVE_URI . '/' . $filename);
         } catch (RequestException $e) {
-            throw new \Exception('Request exception: ' . $e->getMessage(), 0, $e);
+            throw new Exception('Remove exception: ' . $e->getMessage(), 0, $e);
         }
     }
 }

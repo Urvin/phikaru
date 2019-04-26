@@ -2,7 +2,12 @@
 
 namespace urvin\phikaru\tests;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use urvin\phikaru\Exception;
 use urvin\phikaru\Phikaru;
 use urvin\phikaru\UrlBuilder;
 
@@ -74,10 +79,61 @@ class PhikaruTest extends TestCase
         $phikaru->upload('destination', '/path/to/file.xyz');
     }
 
+    public function testUpload()
+    {
+        $mock = new MockHandler([
+            new Response(201, ['Content-Length' => 0]),
+            new Response(500, ['Content-Length' => 0]),
+        ]);
+
+        $handler = HandlerStack::create($mock);
+        $phikaru = new Phikaru(self::DEFAULT_URL, self::DEFAULT_SALT);
+        $filename = realpath(__DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'file.txt');
+
+        $client = new Client([
+            'handler' => $handler,
+            'base_uri' => self::DEFAULT_URL
+        ]);
+
+        $this->accessor->setPropertyValue($phikaru, 'http', $client);
+
+        $this->assertNull(
+            $phikaru->upload('destination', $filename)
+        );
+
+        $this->expectException(Exception::class);
+        $phikaru->upload('destination', $filename);
+    }
+
     public function testRemoveFail()
     {
         $this->expectException(\InvalidArgumentException::class);
         $phikaru = new Phikaru(self::DEFAULT_URL, self::DEFAULT_SALT);
         $phikaru->remove('');
+    }
+
+    public function testRemove()
+    {
+        $mock = new MockHandler([
+            new Response(200, ['Content-Length' => 0]),
+            new Response(500, ['Content-Length' => 0]),
+        ]);
+
+        $handler = HandlerStack::create($mock);
+        $phikaru = new Phikaru(self::DEFAULT_URL, self::DEFAULT_SALT);
+
+        $client = new Client([
+            'handler' => $handler,
+            'base_uri' => self::DEFAULT_URL
+        ]);
+
+        $this->accessor->setPropertyValue($phikaru, 'http', $client);
+
+        $this->assertNull(
+            $phikaru->remove('destination')
+        );
+
+        $this->expectException(Exception::class);
+        $phikaru->remove('destination');
     }
 }

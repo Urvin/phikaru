@@ -24,6 +24,20 @@ class PrivateAccessor
     /**
      * @param $object
      * @param string $name
+     * @param $value
+     * @throws \ReflectionException
+     */
+    public function setPropertyValue($object, string $name, $value)
+    {
+        $reflector = new \ReflectionClass($object);
+        $property = $reflector->getProperty($name);
+        $property->setAccessible(true);
+        $property->setValue($object, $value);
+    }
+
+    /**
+     * @param $object
+     * @param string $name
      * @param array $params
      * @return mixed
      * @throws \ReflectionException
