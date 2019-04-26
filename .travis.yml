@@ -1,0 +1,16 @@
+sudo: false
+language: php
+php:
+  - 7.2
+matrix:
+  allow_failures:
+    - php: hhvm
+  fast_finish: true
+before_script:
+  - composer install
+script: php vendor/bin/phpunit --configuration ./phpunit.dist.xml
+notifications:
+  email:
+    recipients:
+      - yuriy@gorbachev.rocks
+    on_success: change
