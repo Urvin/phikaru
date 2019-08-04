@@ -62,7 +62,7 @@ class UrlBuilder
         if(empty($baseUrl)) {
             throw new \InvalidArgumentException("Base URL should not be empty");
         }
-        $this->baseUrl = $baseUrl;
+        $this->baseUrl = rtrim($baseUrl, '/');
         $this->signatureSalt = $signatureSalt;
     }
 

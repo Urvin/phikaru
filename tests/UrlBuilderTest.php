@@ -8,6 +8,7 @@ use urvin\phikaru\UrlBuilder;
 class UrlBuilderTest extends TestCase
 {
     const DEFAULT_URL = 'http://hikaru.local';
+    const DEFAULT_URL_2 = 'http://hikaru.local/images';
     const DEFAULT_SALT = 'not_safe';
     const DEFAULT_FILENAME = 'test_filename';
     const DEFAULT_EXTENSION = 'webp';
@@ -34,6 +35,21 @@ class UrlBuilderTest extends TestCase
         $this->assertEquals(
             $this->accessor->getPropertyValue($builder, 'signatureSalt'),
             self::DEFAULT_SALT
+        );
+    }
+
+    public function test__constructOtherUrls()
+    {
+        $builder = new UrlBuilder(self::DEFAULT_URL_2, self::DEFAULT_SALT);
+        $this->assertEquals(
+            $this->accessor->getPropertyValue($builder, 'baseUrl'),
+            self::DEFAULT_URL_2
+        );
+
+        $builder = new UrlBuilder(self::DEFAULT_URL_2 . '/', self::DEFAULT_SALT);
+        $this->assertEquals(
+            $this->accessor->getPropertyValue($builder, 'baseUrl'),
+            self::DEFAULT_URL_2
         );
     }
 

@@ -34,7 +34,7 @@ class Phikaru
             throw new \InvalidArgumentException("Base URL should not be empty");
         }
 
-        $this->baseUrl = $baseUrl;
+        $this->baseUrl = rtrim($baseUrl, '/');
         $this->signatureSalt = $signatureSalt;
     }
 
@@ -45,7 +45,7 @@ class Phikaru
     {
         if(empty($this->http)) {
             $this->http = new Client([
-                'base_uri' => $this->baseUrl
+                'base_uri' => $this->baseUrl . '/'
             ]);
         }
         return $this->http;
